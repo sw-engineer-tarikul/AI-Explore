@@ -50,8 +50,8 @@ public static class FieldValues
     {
         return raw.ToLowerInvariant() switch
         {
-            "true" or "yes" or "1" => true,
-            "false" or "no" or "0" => false,
+            "true" or "1" => true,
+            "false" or "0" => false,
             _ => throw new FormatException($"'{raw}' is not a valid boolean."),
         };
     }
