@@ -5,8 +5,8 @@ unit tests, plus the Fabro workflow used by the `Fix Build` automation.
 
 The module owns bases, tables, fields, records, formulas and relationships.
 This starter only contains field-type coercion so the build and test pipeline
-has something real to run. Extend it following `src/DataEngine/AGENTS.md`
-(kept in the team workspace; do not move module rules into code comments).
+has something real to run. Keep the team's module rules in the shared
+`AGENTS.md` workspace, not in code comments.
 
 ## Layout
 
