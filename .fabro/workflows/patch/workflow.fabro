@@ -2,7 +2,7 @@ digraph FixBuild {
     graph [
         goal="Restore the repository to a green build: run the project's build and tests, fix every failure at the root cause, and never weaken or delete checks to make them pass",
         model_stylesheet="
-            * { model: claude-sonnet-5; reasoning_effort: high; }
+            * { provider: opencode; model: kimi-k3; }
         "
         max_node_visits=24
     ]
@@ -23,7 +23,6 @@ digraph FixBuild {
     fix [
         label="Fix build",
         prompt="@prompts/fix-build.md",
-        reasoning_effort="high",
         max_tokens=8000,
         max_visits=5
     ]
