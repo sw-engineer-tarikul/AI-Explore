@@ -24,6 +24,7 @@ digraph FixBuild {
         label="Fix build",
         prompt="@prompts/fix-build.md",
         reasoning_effort="high",
+        max_tokens=8000,
         max_visits=5
     ]
 
