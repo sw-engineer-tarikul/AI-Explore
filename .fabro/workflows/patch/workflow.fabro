@@ -36,7 +36,7 @@ digraph FixBuild {
     ]
 
     start -> build
-    build -> exit [label="Green", condition="outcome=succeeded"]
+    build -> verify [label="Compiled", condition="outcome=succeeded"]
     build -> fix  [label="Broken"]
     fix -> verify
     verify -> exit [label="Green", condition="outcome=succeeded"]
