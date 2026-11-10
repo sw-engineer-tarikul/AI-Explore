@@ -1,0 +1,22 @@
+# Build output
+bin/
+obj/
+artifacts/
+*.user
+*.suo
+.vs/
+
+# Test and coverage output
+TestResults/
+coverage/
+*.trx
+*.coverage
+
+# Tooling caches
+.dotnet/
+node_modules/
+.cache/
+
+# OS noise
+.DS_Store
+Thumbs.db

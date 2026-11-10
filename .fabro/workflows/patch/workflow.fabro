@@ -1,0 +1,44 @@
+digraph FixBuild {
+    graph [
+        goal="Restore the repository to a green build: run the project's build and tests, fix every failure at the root cause, and never weaken or delete checks to make them pass",
+        model_stylesheet="
+            * { model: claude-sonnet-5; reasoning_effort: high; }
+        "
+        max_node_visits=24
+    ]
+    rankdir=LR
+
+    start [shape=Mdiamond, label="Start"]
+    exit  [shape=Msquare, label="Exit"]
+
+    // Detect the stack and run its build. Non-zero exit routes to Fix.
+    build [
+        label="Build",
+        shape=parallelogram,
+        timeout="20m",
+        retry_policy="none",
+        script="if [ -f ./scripts/build.sh ]; then bash ./scripts/build.sh; elif [ -f global.json ] || find . -maxdepth 2 -name '*.sln' | grep -q . || find . -maxdepth 3 -name '*.csproj' | grep -q .; then dotnet build --nologo; elif [ -f package.json ]; then npm ci && npm run build --if-present; elif [ -f Cargo.toml ]; then cargo build; else echo 'No build system detected'; fi"
+    ]
+
+    fix [
+        label="Fix build",
+        prompt="@prompts/fix-build.md",
+        reasoning_effort="high",
+        max_visits=5
+    ]
+
+    verify [
+        label="Verify",
+        shape=parallelogram,
+        timeout="20m",
+        retry_policy="none",
+        script="if [ -f ./scripts/test.sh ]; then bash ./scripts/test.sh; elif [ -f global.json ] || find . -maxdepth 2 -name '*.sln' | grep -q . || find . -maxdepth 3 -name '*.csproj' | grep -q .; then dotnet test --nologo; elif [ -f package.json ]; then npm test --if-present; elif [ -f Cargo.toml ]; then cargo test; else echo 'No test system detected'; fi"
+    ]
+
+    start -> build
+    build -> exit [label="Green", condition="outcome=succeeded"]
+    build -> fix  [label="Broken"]
+    fix -> verify
+    verify -> exit [label="Green", condition="outcome=succeeded"]
+    verify -> fix  [label="Still broken"]
+}
