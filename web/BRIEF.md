@@ -1,13 +1,10 @@
-# Page brief
+# Page brief (fallback)
 
-This is where the requirement goes. Write it in plain English — Fabro reads this
-file at the start of every run and builds (or updates) the page to match it.
+This file is the fallback requirement for page generation when no run-specific
+requirement (via goal or input) is provided.
 
-Keep it short and concrete: what the page is for, which sections it needs, and
-any wording you care about. Bullet points work best.
-
-**To change the page:** edit this file, commit, then click **Run** on the
-`web-page` automation.
+To run page generation without editing this file, pass a goal or requirement input
+to the run launcher. If none is passed, Fabro will fall back to reading this file.
 
 ---
 

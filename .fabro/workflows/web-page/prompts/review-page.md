@@ -17,8 +17,15 @@ file.** Read only.
 2. **Content** — header, hero with a single `<h1>`, exactly three feature cards,
    a quick-start section with a `<pre><code>` C# block, and a footer. No lorem
    ipsum, no placeholder text, no fake links.
-   Then check the page against `web/BRIEF.md`: every section the brief asks for
-   is present, and nothing extra was invented that contradicts it.
+   Then check the page against the run requirement:
+   {% if goal and goal != "Create a clean, minimal static landing page for the Data Engine project in plain HTML and CSS" %}
+   Requirement (from goal): {{ goal }}
+   {% elif inputs.requirement %}
+   Requirement (from input): {{ inputs.requirement }}
+   {% else %}
+   Check against `web/BRIEF.md` (or the default outline below if absent).
+   {% endif %}
+   Every section the requirement asks for is present, and nothing extra was invented that contradicts it.
 3. **Accuracy** — every API call in the snippet exists in
    `src/DataEngine/FieldValues.cs` with the same semantics (empty input returns
    `null`, invalid input throws `FormatException`).

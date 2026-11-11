@@ -4,9 +4,23 @@ Create a static landing page for the **Data Engine** module in this repository.
 
 ## Step 1: read the requirement
 
+{% if goal and goal != "Create a clean, minimal static landing page for the Data Engine project in plain HTML and CSS" %}
+### Run Requirement (provided via goal)
+
+{{ goal }}
+{% elif inputs.requirement %}
+### Run Requirement (provided via input)
+
+{{ inputs.requirement }}
+{% else %}
 Read `web/BRIEF.md` first. That file is the requirement for this run and it
 **overrides** the default outline below wherever the two differ. If the file is
 missing or has no requirement section, use the default outline.
+{% endif %}
+
+The requirement above (whether from goal, input, or `web/BRIEF.md`) **overrides**
+the default outline below wherever the two differ. If no requirement was provided,
+use the default outline.
 
 Never edit `web/BRIEF.md`.
 
