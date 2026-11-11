@@ -30,6 +30,17 @@ well as on a developer machine.
 
 ## Automation
 
+### 1. Fix Build
 `Fix Build` (Fabro, environment `default`) checks out this repository, runs the
 `patch` workflow from `.fabro/workflows/patch/`, and — if the build or tests
 fail — hands the log to an agent that fixes the root cause, then re-verifies.
+
+### 2. Web Page Generator (Data Engine Landing Page)
+Generates or updates the clean, minimal static landing page (`web/index.html` + `web/styles.css`).
+
+**How to run with a custom requirement (no markdown file editing needed):**
+- **Windows (Double-click or CMD):** Run `generate-page.cmd` and type your requirement when prompted.
+- **PowerShell:** `.\scripts\generate-page.ps1 -Requirement "Your landing page requirements here"`
+- **Python CLI:** `python scripts/generate_page.py "Your landing page requirements here"`
+
+If no requirement is specified, it uses the default landing page specification or falls back to `web/BRIEF.md`.
