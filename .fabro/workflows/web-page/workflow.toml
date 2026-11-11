@@ -3,13 +3,6 @@ _version = 1
 [workflow]
 graph = "workflow.fabro"
 
-# Run-level default. The graph stylesheet pins every stage to the same model;
-# this also keeps generated pull-request titles/bodies off the OpenRouter
-# default, which the free-tier key cannot afford.
-[run.model]
-provider = "opencode"
-name = "deepseek-v4.1-flash"
-
 [run.pull_request]
 enabled = true
 draft = true
