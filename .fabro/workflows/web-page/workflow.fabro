@@ -51,6 +51,6 @@ digraph WebPage {
     verify -> review  [condition="outcome=succeeded"]
     verify -> build   [label="Broken"]
     review -> confirm
-    confirm -> exit
-    confirm -> build  [label="Broken"]
+    confirm -> exit  [condition="outcome=succeeded"]
+    confirm -> build [label="Broken"]
 }
