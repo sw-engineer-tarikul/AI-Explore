@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Data Engine — Typed fields and schema for AI-Explore</title>
+    <meta
+      name="description"
+      content="Data Engine is the AI-Explore module for bases, tables, fields, records, formulas and relationships, with typed field coercion validated at the module edge."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand-lockup">
+          <div class="brand-row">
+            <svg
+              class="brand-mark"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <ellipse cx="12" cy="5.5" rx="7" ry="3"></ellipse>
+              <path d="M5 5.5v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"></path>
+              <path d="M5 11.5v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"></path>
+            </svg>
+            <span class="brand-name">Data Engine</span>
+          </div>
+          <p class="tagline">Typed schema, validated at the edge.</p>
+        </div>
+
+        <nav class="site-nav" aria-label="Primary">
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#quick-start">Quick start</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="overview" class="hero" aria-labelledby="overview-title">
+        <div class="container">
+          <h1 id="overview-title">Data Engine</h1>
+          <p class="hero-lede">
+            Data Engine is the module that owns bases, tables, fields, records,
+            formulas and relationships. It keeps schema and values honest at the
+            boundary, so everything downstream can trust the data it receives.
+          </p>
+          <a class="button" href="#quick-start">Start with the quick start</a>
+        </div>
+      </section>
+
+      <section id="features" class="section" aria-labelledby="features-title">
+        <div class="container">
+          <h2 id="features-title">Features</h2>
+          <div class="cards">
+            <article class="card">
+              <h3>Typed fields</h3>
+              <p>
+                Text, number, boolean and date fields share one coercion path, so
+                every value takes the right shape as it enters the module.
+                Invalid input fails at the edge instead of spreading through your
+                schema.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3>Validation at the edge</h3>
+              <p>
+                <code>FieldValues.Coerce</code> returns a typed value or throws
+                <code>FormatException</code>, and empty input becomes
+                <code>null</code> rather than a silent default. You always know
+                whether a value is present and valid.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3>Tested in the open</h3>
+              <p>
+                The module ships with a real xUnit suite covering coercion rules,
+                empty input and failure cases. The build is CI-friendly, so
+                documented behavior is proven on every run rather than assumed.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="quick-start" class="section" aria-labelledby="quick-start-title">
+        <div class="container">
+          <h2 id="quick-start-title">Quick start</h2>
+          <p class="section-intro">
+            Reference the <code>DataEngine</code> namespace and call
+            <code>FieldValues.Coerce</code> with the field type and raw input.
+            Numbers, booleans and dates are trimmed before parsing, while text
+            keeps its original whitespace.
+          </p>
+          <pre><code>using DataEngine;
+
+var age = FieldValues.Coerce(FieldType.Number, " 42 ");   // 42m
+var active = FieldValues.Coerce(FieldType.Boolean, "yes"); // true
+var due = FieldValues.Coerce(FieldType.Date, "2026-01-31"); // 2026-01-31
+var empty = FieldValues.Coerce(FieldType.Text, "  ");      // null
+FieldValues.Coerce(FieldType.Number, "not-a-number");     // throws FormatException</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>AI-Explore &middot; Data Engine module</p>
+      </div>
+    </footer>
+  </body>
+</html>
