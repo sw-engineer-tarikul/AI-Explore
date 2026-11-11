@@ -21,7 +21,7 @@ param(
     [switch]$DryRun
 )
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
 
 # If no requirement is provided via CLI argument, prompt interactively
 if (-not $Requirement -or $Requirement.Trim() -eq "") {
@@ -84,9 +84,15 @@ Write-Host "[2/3] Executing workflow on Fabro server..." -ForegroundColor Green
 # Execute and stream output
 $outputLines = [System.Collections.Generic.List[string]]::new()
 & docker @dockerArgs 2>&1 | ForEach-Object {
-    $line = $_.ToString()
-    Write-Host $line
-    $outputLines.Add($line)
+    if ($_ -is [System.Management.Automation.ErrorRecord]) {
+        $line = $_.Exception.Message
+    } else {
+        $line = "$_"
+    }
+    if (-not [string]::IsNullOrWhiteSpace($line)) {
+        Write-Host $line
+        $outputLines.Add($line)
+    }
 }
 
 $fullOutput = $outputLines -join "`n"
@@ -98,9 +104,15 @@ if ($fullOutput -match "token resolution failed") {
     Start-Sleep -Seconds 2
     $outputLines.Clear()
     & docker @dockerArgs 2>&1 | ForEach-Object {
-        $line = $_.ToString()
-        Write-Host $line
-        $outputLines.Add($line)
+        if ($_ -is [System.Management.Automation.ErrorRecord]) {
+            $line = $_.Exception.Message
+        } else {
+            $line = "$_"
+        }
+        if (-not [string]::IsNullOrWhiteSpace($line)) {
+            Write-Host $line
+            $outputLines.Add($line)
+        }
     }
     $fullOutput = $outputLines -join "`n"
 }
