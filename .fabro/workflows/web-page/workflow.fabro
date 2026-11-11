@@ -1,0 +1,56 @@
+digraph WebPage {
+    graph [
+        goal="Create a clean, minimal static landing page for the Data Engine project in plain HTML and CSS",
+        model_stylesheet="
+            * { provider: opencode; model: deepseek-v4.1-flash; }
+        "
+        max_node_visits=12
+    ]
+    rankdir=LR
+
+    start [shape=Mdiamond, label="Start"]
+    exit  [shape=Msquare, label="Exit"]
+
+    // Writes web/index.html and web/styles.css. Loops if verification fails.
+    build [
+        label="Build page",
+        prompt="@prompts/build-page.md",
+        max_tokens=8000,
+        max_visits=3
+    ]
+
+    // Cheap structural gate: files exist, are linked, and have real content.
+    verify [
+        label="Verify",
+        shape=parallelogram,
+        timeout="5m",
+        retry_policy="none",
+        script="set -euo pipefail; test -f web/index.html; test -f web/styles.css; grep -qi '<title>' web/index.html; grep -q 'styles.css' web/index.html; test \"$(wc -c < web/styles.css)\" -gt 600; grep -qi 'Data Engine' web/index.html; grep -qi 'FieldValues' web/index.html; echo 'Static page checks passed'"
+    ]
+
+    // Advisory review. Fabro gives workflow agents full tool access, so the
+    // read-only rule is enforced by the prompt, not by an attribute.
+    review [
+        label="Review",
+        prompt="@prompts/review-page.md",
+        max_tokens=2000
+    ]
+
+    // Re-run the structural gate after review, so a review-time edit can never
+    // reach the pull request unverified.
+    confirm [
+        label="Re-check",
+        shape=parallelogram,
+        timeout="2m",
+        retry_policy="none",
+        script="set -euo pipefail; test -f web/index.html; test -f web/styles.css; grep -q 'styles.css' web/index.html; test \"$(wc -c < web/styles.css)\" -gt 600; echo 'Post-review checks passed'"
+    ]
+
+    start -> build
+    build -> verify
+    verify -> review  [condition="outcome=succeeded"]
+    verify -> build   [label="Broken"]
+    review -> confirm
+    confirm -> exit
+    confirm -> build  [label="Broken"]
+}
