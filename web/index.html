@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Data Engine — Typed fields, validated at the edge | AI-Explore</title>
+    <meta
+      name="description"
+      content="Data Engine is the AI-Explore module that owns bases, tables, fields, records, formulas and relationships, with typed field coercion and validation at the edge."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand-block">
+          <span class="brand">Data Engine</span>
+          <span class="tagline">Typed fields for bases, tables and records.</span>
+        </div>
+        <nav aria-label="Primary">
+          <ul class="nav-list">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#quickstart">Quick start</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="overview" class="section hero" aria-labelledby="hero-title">
+        <div class="container">
+          <h1 id="hero-title">Structure your data, at the edge.</h1>
+          <p class="lead">
+            Data Engine is the module that owns bases, tables, fields, records,
+            formulas and relationships. It coerces raw input into typed values at
+            the module edge, so invalid data fails early instead of leaking into
+            your app.
+          </p>
+          <a class="button" href="#quickstart">Jump to quick start</a>
+        </div>
+      </section>
+
+      <section id="features" class="section" aria-labelledby="features-title">
+        <div class="container">
+          <h2 id="features-title">Features</h2>
+          <p class="section-intro">
+            One coercion path for every field type, with validation where data
+            enters the module.
+          </p>
+
+          <div class="feature-grid">
+            <article class="card">
+              <h3>Typed fields</h3>
+              <p>
+                Text, number, boolean and date fields share a single coercion
+                path. Values are converted at the module edge, so invalid input
+                fails early instead of spreading through your data.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3>Validation at the edge</h3>
+              <p>
+                <code>FieldValues.Coerce</code> returns a typed value or throws
+                <code>FormatException</code>. Empty input becomes
+                <code>null</code>, never a silent default.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3>Tested in the open</h3>
+              <p>
+                The module ships with a real xUnit suite and a CI-friendly
+                build, so behaviour is proven by tests you can run yourself —
+                not assumed.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="roadmap" class="section" aria-labelledby="roadmap-title">
+        <div class="container">
+          <h2 id="roadmap-title">Roadmap</h2>
+          <p class="section-intro">
+            What the module supports today, and what comes next.
+          </p>
+
+          <ol class="roadmap">
+            <li class="roadmap-item">
+              <div class="roadmap-head">
+                <h3>Field coercion</h3>
+                <span class="status">Available now</span>
+              </div>
+              <p>
+                Text, number, boolean and date values coerce at the edge.
+                Whitespace becomes an empty value, and input that cannot be
+                parsed throws <code>FormatException</code>.
+              </p>
+            </li>
+
+            <li class="roadmap-item">
+              <div class="roadmap-head">
+                <h3>Records and tables</h3>
+                <span class="status">Next</span>
+              </div>
+              <p>
+                Records will validate their field values against the table
+                schema before they are stored, using the same typed coercion
+                that already guards the module edge.
+              </p>
+            </li>
+
+            <li class="roadmap-item">
+              <div class="roadmap-head">
+                <h3>Formulas</h3>
+                <span class="status">Planned</span>
+              </div>
+              <p>
+                Computed fields will evaluate against record values while
+                staying inside the module boundary, so formula results keep the
+                field's declared type.
+              </p>
+            </li>
+
+            <li class="roadmap-item">
+              <div class="roadmap-head">
+                <h3>Relationships</h3>
+                <span class="status">Planned</span>
+              </div>
+              <p>
+                Links between tables will resolve through typed fields, so a
+                relationship can never point at the wrong value shape.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="quickstart" class="section" aria-labelledby="quickstart-title">
+        <div class="container">
+          <h2 id="quickstart-title">Quick start</h2>
+          <p class="section-intro">
+            Reference the <code>DataEngine</code> project and call
+            <code>FieldValues.Coerce</code> with a field type and the raw input.
+            It returns the typed value, <code>null</code> for empty input, or
+            throws <code>FormatException</code> when the input is not valid for
+            the type.
+          </p>
+
+          <pre><code>using DataEngine;
+
+var age = FieldValues.Coerce(FieldType.Number, " 42 ");   // 42m
+var active = FieldValues.Coerce(FieldType.Boolean, "yes"); // true
+var due = FieldValues.Coerce(FieldType.Date, "2026-01-31"); // 2026-01-31
+var empty = FieldValues.Coerce(FieldType.Text, "  ");      // null
+
+FieldValues.Coerce(FieldType.Number, "forty-two");        // throws FormatException</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p><strong>AI-Explore</strong> · Data Engine</p>
+        <p class="footer-note">Typed fields for bases, tables and records.</p>
+      </div>
+    </footer>
+  </body>
+</html>
