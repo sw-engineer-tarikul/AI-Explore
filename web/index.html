@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Data Engine — Instant Type Coercion</title>
+    <meta
+      name="description"
+      content="Data Engine validates and coerces raw input into typed values at the module edge, so invalid data fails early and the rest of the system stays predictable."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <div class="brand">
+          <span class="brand__name">Data Engine</span>
+          <span class="brand__tagline">Typed data, decided at the edge.</span>
+        </div>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#overview">Overview</a>
+          <a href="#features">Features</a>
+          <a href="#quick-start">Quick start</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="overview" aria-labelledby="overview-title">
+        <p class="eyebrow">
+          <span class="eyebrow__dot" aria-hidden="true"></span>
+          Instant type coercion
+        </p>
+        <h1 id="overview-title">Raw input becomes real data, immediately.</h1>
+        <p class="hero__lede">
+          Data Engine is the module that owns bases, tables, fields, records,
+          formulas and relationships. It coerces every value as it enters the
+          module, so a number is a number, a date is a date, and bad input stops
+          right where it started.
+        </p>
+        <a class="button" href="#quick-start">Jump to quick start</a>
+      </section>
+
+      <section class="section" id="features" aria-labelledby="features-title">
+        <h2 id="features-title">Built for predictable data</h2>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Typed fields</h3>
+            <p>
+              Text, number, boolean and date fields each have one clear shape.
+              Coercion happens at the module edge, so invalid input fails early
+              instead of leaking into your records.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Validation at the edge</h3>
+            <p>
+              <code>FieldValues.Coerce</code> returns a typed value or throws
+              <code>FormatException</code>. Empty input becomes
+              <code>null</code>, never a silent default.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Tested in the open</h3>
+            <p>
+              The module ships with a real xUnit suite and a CI-friendly build,
+              so its behavior is proven rather than assumed.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="quick-start" aria-labelledby="quick-start-title">
+        <h2 id="quick-start-title">Quick start</h2>
+        <p class="section__lede">
+          Call <code>FieldValues.Coerce</code> with the field type and the raw
+          input. Values are trimmed at the edge, and the result is either a typed
+          value or a <code>FormatException</code>.
+        </p>
+        <pre><code>using DataEngine;
+
+var age = FieldValues.Coerce(FieldType.Number, " 42 ");    // 42m
+var active = FieldValues.Coerce(FieldType.Boolean, "yes"); // true
+var due = FieldValues.Coerce(FieldType.Date, "2026-01-31"); // 2026-01-31
+var empty = FieldValues.Coerce(FieldType.Text, "  ");      // null
+
+FieldValues.Coerce(FieldType.Number, "forty-two");          // throws FormatException</code></pre>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <strong>Data Engine</strong> — a module in the
+        <strong>AI-Explore</strong> repository.
+      </p>
+    </footer>
+  </body>
+</html>
