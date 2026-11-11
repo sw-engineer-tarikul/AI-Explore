@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Data Engine — Typed fields, validated at the edge | AI-Explore</title>
+    <meta
+      name="description"
+      content="Data Engine is the AI-Explore module that owns bases, tables, fields, records, formulas and relationships, with typed field coercion and validation at the module edge."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <a class="brand-name" href="#overview">Data Engine</a>
+          <p class="tagline">Typed fields, validated at the edge.</p>
+        </div>
+        <nav class="site-nav" aria-label="Primary">
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#quick-start">Quick start</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="overview" aria-labelledby="overview-heading">
+        <div class="container">
+          <h1 id="overview-heading">Data, modeled with intent.</h1>
+          <p class="hero-lede">
+            Data Engine is the AI-Explore module that owns bases, tables, fields,
+            records, formulas and relationships. Every value is given a defined
+            type and checked at the module edge, so the rest of the system can
+            trust what it stores.
+          </p>
+          <a class="button" href="#quick-start">View the quick start</a>
+        </div>
+      </section>
+
+      <section class="features" id="features" aria-labelledby="features-heading">
+        <div class="container">
+          <h2 id="features-heading">Small surface, strict guarantees</h2>
+          <div class="cards">
+            <article class="card">
+              <h3>Typed fields</h3>
+              <p>
+                Text, number, boolean and date are first-class field types.
+                Coercion happens at the module edge, so invalid input fails early
+                instead of spreading through the system.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Validation at the edge</h3>
+              <p>
+                <code>FieldValues.Coerce</code> returns a typed value or throws
+                <code>FormatException</code>. Empty input becomes
+                <code>null</code>, never a silent default.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Tested in the open</h3>
+              <p>
+                The module ships with a real xUnit suite and a CI-friendly build.
+                Its behavior is proven on every change, not assumed.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="quick-start"
+        id="quick-start"
+        aria-labelledby="quick-start-heading"
+      >
+        <div class="container">
+          <h2 id="quick-start-heading">Quick start</h2>
+          <p>
+            The public surface is deliberately small: pass raw input and a field
+            type, then handle the empty case. Here is the API in use.
+          </p>
+          <pre
+            class="code-sample"
+            tabindex="0"
+            role="region"
+            aria-label="C# example of coercing field values with Data Engine"
+          ><code>using DataEngine;
+
+var age = FieldValues.Coerce(FieldType.Number, " 42 ");    // 42m
+var active = FieldValues.Coerce(FieldType.Boolean, "yes"); // true
+var due = FieldValues.Coerce(FieldType.Date, "2026-01-31"); // 2026-01-31
+var empty = FieldValues.Coerce(FieldType.Text, "  ");       // null
+
+FieldValues.Coerce(FieldType.Number, "not-a-number");       // throws FormatException</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p><strong>AI-Explore</strong> · Data Engine module</p>
+        <p class="footer-note">
+          A small, static overview. Plain HTML and CSS, no tracking.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
