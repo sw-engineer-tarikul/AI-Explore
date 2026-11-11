@@ -2,7 +2,7 @@ digraph FixBuild {
     graph [
         goal="Restore the repository to a green build: run the project's build and tests, fix every failure at the root cause, and never weaken or delete checks to make them pass",
         model_stylesheet="
-            * { provider: opencode; model: kimi-k3; }
+            * { provider: opencode; model: deepseek-v4.1-flash; }
         "
         max_node_visits=24
     ]
