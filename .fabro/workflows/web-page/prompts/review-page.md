@@ -19,9 +19,7 @@ file.** Read only.
    ipsum, no placeholder text, no fake links.
    Then check the page against the run requirement:
    {% if goal and goal != "Create a clean, minimal static landing page for the Data Engine project in plain HTML and CSS" %}
-   Requirement (from goal): {{ goal }}
-   {% elif inputs.requirement %}
-   Requirement (from input): {{ inputs.requirement }}
+   Requirement (for this run): {{ goal }}
    {% else %}
    Check against `web/BRIEF.md` (or the default outline below if absent).
    {% endif %}
