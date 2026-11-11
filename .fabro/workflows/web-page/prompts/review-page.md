@@ -17,6 +17,8 @@ file.** Read only.
 2. **Content** — header, hero with a single `<h1>`, exactly three feature cards,
    a quick-start section with a `<pre><code>` C# block, and a footer. No lorem
    ipsum, no placeholder text, no fake links.
+   Then check the page against `web/BRIEF.md`: every section the brief asks for
+   is present, and nothing extra was invented that contradicts it.
 3. **Accuracy** — every API call in the snippet exists in
    `src/DataEngine/FieldValues.cs` with the same semantics (empty input returns
    `null`, invalid input throws `FormatException`).

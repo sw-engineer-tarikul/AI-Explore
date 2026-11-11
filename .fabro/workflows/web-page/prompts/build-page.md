@@ -2,6 +2,18 @@
 
 Create a static landing page for the **Data Engine** module in this repository.
 
+## Step 1: read the requirement
+
+Read `web/BRIEF.md` first. That file is the requirement for this run and it
+**overrides** the default outline below wherever the two differ. If the file is
+missing or has no requirement section, use the default outline.
+
+Never edit `web/BRIEF.md`.
+
+If `web/index.html` already exists, this is an **update**, not a rewrite: keep
+everything that already satisfies the brief, and change only what the brief asks
+for (or what is broken). Only start from scratch when the files do not exist.
+
 ## Files to create
 
 - `web/index.html` — the page
@@ -11,9 +23,9 @@ Create the `web/` directory if it does not exist.
 
 ## Hard rules
 
-1. Create **only** `web/index.html` and `web/styles.css`. Do not modify, move or
-   delete any existing file (no edits to `src/`, `scripts/`, `README.md`, or
-   `.fabro/`).
+1. Create or update **only** `web/index.html` and `web/styles.css`. Do not
+   modify, move or delete any existing file (no edits to `web/BRIEF.md`, `src/`,
+   `scripts/`, `README.md`, or `.fabro/`).
 2. Plain HTML5 + plain CSS only. **No JavaScript, no CDN links, no external
    fonts, no images, no build step.** The page must render correctly when the
    two files are opened directly from disk.
