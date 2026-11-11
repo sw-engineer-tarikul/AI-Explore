@@ -1,23 +1,13 @@
 @echo off
-setlocal enabledelayedexpansion
+setlocal
 
-echo ==========================================================
-echo          Data Engine Landing Page Automation
-echo ==========================================================
-echo.
-set "REQ="
-set /p REQ="Enter requirement (or press Enter for default): "
+rem Launch PowerShell with ExecutionPolicy Bypass to support multi-line input and automatic PR creation
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\generate-page.ps1" %*
 
-if "!REQ!"=="" (
-    set "REQ=Data Engine landing page: highlight instant type coercion, field validation, and clean minimal design"
+if errorlevel 1 (
+    echo.
+    echo Workflow exited with an error.
 )
-
-echo.
-echo Launching Fabro workflow with requirement:
-echo "!REQ!"
-echo.
-
-docker exec -i fabro-server fabro run --target sw-engineer-tarikul/AI-Explore@main --goal "!REQ!" sw-engineer-tarikul/AI-Explore@main:web-page
 
 echo.
 pause
