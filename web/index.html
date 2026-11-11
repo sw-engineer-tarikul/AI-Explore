@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Engine — typed fields for structured records</title>
+  <meta name="description" content="Data Engine is the module that owns bases, tables, fields, records, formulas and relationships, with typed field coercion at the module edge." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand-block">
+        <a class="brand" href="#overview">
+          <svg class="brand-mark" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+            <path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+            <path d="M12 7v10M7.5 9.5l9 5M16.5 9.5l-9 5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+          <span>Data Engine</span>
+        </a>
+        <p class="tagline">Typed fields for structured records.</p>
+      </div>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#quick-start">Quick start</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="overview" class="hero" aria-labelledby="overview-title">
+      <div class="wrap">
+        <h1 id="overview-title">Structured data, typed at the edge.</h1>
+        <p class="lede">
+          Data Engine is the module that owns bases, tables, fields, records, formulas
+          and relationships. Every value crosses a single coercion boundary, so the rest
+          of the system can trust what it stores.
+        </p>
+        <a class="cta" href="#quick-start">Read the quick start</a>
+      </div>
+    </section>
+
+    <section id="features" class="features" aria-labelledby="features-title">
+      <div class="wrap">
+        <h2 id="features-title">Features</h2>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Typed fields</h3>
+            <p>
+              Text, number, boolean and date fields share one small contract, with
+              coercion at the module edge so invalid input fails early.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Validation at the edge</h3>
+            <p>
+              <code>FieldValues.Coerce</code> returns a typed value or throws
+              <code>FormatException</code>. Empty input becomes <code>null</code>,
+              not a default.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Tested in the open</h3>
+            <p>
+              The module ships with a real xUnit suite and a CI-friendly build, so
+              behavior is proven rather than assumed.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="quick-start" class="quick-start" aria-labelledby="quick-start-title">
+      <div class="wrap">
+        <h2 id="quick-start-title">Quick start</h2>
+        <p>
+          The public surface is a single static method. Reference the project, then
+          coerce raw strings as they arrive from a form, an import or an API call.
+        </p>
+        <pre><code>using DataEngine;
+
+var age = FieldValues.Coerce(FieldType.Number, " 42 ");   // 42m
+var active = FieldValues.Coerce(FieldType.Boolean, "yes"); // true
+var due = FieldValues.Coerce(FieldType.Date, "2026-01-31"); // 2026-01-31
+var empty = FieldValues.Coerce(FieldType.Text, "  ");      // null
+
+var bad = FieldValues.Coerce(FieldType.Number, "forty-two"); // throws FormatException</code></pre>
+        <p class="note">
+          Values are trimmed for validation, text keeps its original whitespace, and
+          anything that cannot be coerced throws rather than guessing.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>AI-Explore repository &middot; Data Engine module</p>
+      <p class="fine-print">Plain HTML and CSS. No scripts, no external assets.</p>
+    </div>
+  </footer>
+</body>
+</html>
