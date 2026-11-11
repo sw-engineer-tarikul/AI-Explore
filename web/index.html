@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Engine — typed fields, validated at the edge</title>
+  <meta
+    name="description"
+    content="Data Engine is the module that owns bases, tables, fields, records, formulas and relationships, with typed field coercion and validation at the module edge."
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="identity">
+        <p class="brand">Data Engine</p>
+        <p class="tagline">Typed values for structured work.</p>
+      </div>
+      <nav class="site-nav" aria-label="Page sections">
+        <a href="#overview">Overview</a>
+        <a href="#features">Features</a>
+        <a href="#quick-start">Quick start</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="overview" aria-labelledby="hero-title">
+      <div class="container">
+        <h1 id="hero-title">Data Engine</h1>
+        <p class="lead">
+          Data Engine is the module that owns bases, tables, fields, records,
+          formulas and relationships. Every value gets a known shape at the edge,
+          so the rest of the system can trust what it holds.
+        </p>
+        <a class="cta" href="#quick-start">Start with the quick start</a>
+      </div>
+    </section>
+
+    <section class="section" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <h2 id="features-title">What you get</h2>
+        <div class="cards">
+          <article class="card">
+            <svg class="card-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+              <path d="M4 6h16M4 12h10M4 18h13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <h3>Typed fields</h3>
+            <p>
+              Text, number, boolean and date are first-class field types. Values
+              are coerced at the module edge, so invalid input fails early
+              instead of spreading through the schema.
+            </p>
+          </article>
+
+          <article class="card">
+            <svg class="card-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+              <path d="M12 3 5 6v5c0 4.2 2.9 7.6 7 9 4.1-1.4 7-4.8 7-9V6l-7-3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+              <path d="m9.2 11.8 2 2 3.6-3.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <h3>Validation at the edge</h3>
+            <p>
+              <code>FieldValues.Coerce</code> returns a typed value or throws
+              <code>FormatException</code>. Empty input becomes <code>null</code>,
+              never a silent default.
+            </p>
+          </article>
+
+          <article class="card">
+            <svg class="card-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+              <path d="M9 4h6M10 4v6.2L5.6 18a1.6 1.6 0 0 0 1.4 2.4h10a1.6 1.6 0 0 0 1.4-2.4L14 10.2V4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M8 15h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            <h3>Tested in the open</h3>
+            <p>
+              The module ships with a real xUnit suite and a CI-friendly build, so
+              behavior is proven, not assumed.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quick-start" aria-labelledby="quickstart-title">
+      <div class="container">
+        <h2 id="quickstart-title">Quick start</h2>
+        <p class="section-lead">
+          Coerce a raw string into the value shape of a field type. Numbers
+          become <code>decimal</code>, booleans become <code>bool</code>, dates
+          become <code>DateOnly</code>, and text is preserved as-is.
+        </p>
+        <pre><code>using DataEngine;
+
+var age = FieldValues.Coerce(FieldType.Number, " 42 ");   // 42m
+var active = FieldValues.Coerce(FieldType.Boolean, "yes"); // true
+var due = FieldValues.Coerce(FieldType.Date, "2026-01-31"); // 2026-01-31
+var empty = FieldValues.Coerce(FieldType.Text, "  ");      // null
+
+FieldValues.Coerce(FieldType.Number, "abc"); // throws FormatException</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>AI-Explore — Data Engine module</p>
+      <p>Plain HTML and CSS. No external assets.</p>
+    </div>
+  </footer>
+</body>
+</html>
